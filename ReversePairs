@@ -1,0 +1,44 @@
+#include <bits/stdc++.h> 
+int merge(vector<int>&arr,int left,int mid,int right){    
+   int m=mid-left+1, n=right-mid, cnt=0;
+   int a[m], b[n];
+   int k=0;
+   //doing copy
+   for(int i=left;i<=mid; i++) a[k++]=arr[i];
+   k=0;
+   for(int i=mid+1;i<=right;i++) b[k++]=arr[i];
+   int i=0, j=0;
+    
+   vector<int>temp(m+n);
+   k=0;
+   while(i<m && j<n){
+       if(a[i]>2*b[j]){
+           temp[k++]=b[j++];
+           cnt += m-i;
+       } else temp[k++]=a[i++];
+   }
+
+   while(i<m) temp[k++]=a[i++];
+   while(j<n) temp[k++]=b[j++];
+   sort(temp.begin(), temp.end());
+   k=left;
+   for(int i=0;i<temp.size();i++) arr[k++]=temp[i];
+  
+   return cnt;
+}
+
+int solve(vector<int>&arr,int left,int right){
+    int mid,cnt=0;
+    if(left<right){
+        mid=(left+right)/2;
+        cnt+=solve(arr,left,mid);
+        cnt+=solve(arr,mid+1,right);
+        cnt+=merge(arr,left,mid,right);
+    }
+    
+    return cnt;
+}
+int reversePairs(vector<int> &arr, int n){
+	// Write your code here.	
+    return solve(arr,0,n-1);
+}
