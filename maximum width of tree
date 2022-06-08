@@ -1,0 +1,27 @@
+#include<limits.h>
+int getMaxWidth(TreeNode<int> *root)
+{
+    // Write your code here.
+    if(!root) return 0;
+    queue<TreeNode<int>*> nodes;
+    nodes.push(root);
+    nodes.push(NULL);
+    int cnt=0;
+    int maxi=INT_MIN;
+    while(!nodes.empty()){
+        TreeNode<int>* tmp=nodes.front();
+        nodes.pop();
+        if(tmp==NULL){
+            maxi=max(maxi,cnt);
+            cnt=0;
+            if(!nodes.empty()){
+                nodes.push(NULL);
+            }
+        }else{
+            cnt++;
+            if(tmp->left) nodes.push(tmp->left);
+            if(tmp->right) nodes.push(tmp->right);
+        }
+    }
+    return maxi;
+}
