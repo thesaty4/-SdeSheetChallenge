@@ -1,0 +1,14 @@
+bool isPalindrome(LinkedListNode<int> *head) {
+    // Write your code here.
+     vector <int> v; // creating a vector  
+
+       while (head!=0) // while elements is there in the linkedlis
+       {
+           v.push_back(head->data); 
+           head=head->next; 
+       }
+
+       int first= 0, last= v.size()-1; 
+       while (first<last)  if (v[first++] != v[last--]) return false;            
+       return true;
+}
