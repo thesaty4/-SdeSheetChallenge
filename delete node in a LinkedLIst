@@ -1,0 +1,10 @@
+void deleteNode(LinkedListNode<int> * node) {
+    // Write your code here.
+    LinkedListNode<int>* tmp=node->next;
+    
+    //strore the data of temp as node->data and make node->next=temp->next
+    node->data=tmp->data;
+    node->next=tmp->next;
+    
+    delete tmp;
+}
