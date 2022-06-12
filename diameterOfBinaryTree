@@ -1,0 +1,14 @@
+int solve(TreeNode<int>*root,int &dm){
+    if(!root) return -1;
+    int left = 1+solve(root->left,dm);
+    int right = 1+solve(root->right,dm);
+    dm=max(dm,left+right);
+    return max(left,right);
+}
+int diameterOfBinaryTree(TreeNode<int> *root)
+{
+	// Write Your Code Here.
+    int dm=0;
+    solve(root,dm);
+    return dm;
+}
