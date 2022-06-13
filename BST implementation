@@ -1,0 +1,103 @@
+#include<stdio.h>
+#include<conio.h>
+#include<stdlib.h>
+#include<windows.h>
+struct BST{
+    int data;
+    struct BST* left,*right;
+};
+
+struct BST * insert(struct BST* root,int data ){
+    struct BST *newNode=(struct BST*) malloc(sizeof(struct BST));
+    newNode->data=data;
+    newNode->left=NULL;
+    newNode->right=NULL;
+
+    if(root==NULL){
+        return newNode;
+    }else{
+        struct BST* troot=root;
+        while(troot!=NULL){
+            if(data<troot->data){
+                if(troot->left==NULL) {
+                    troot->left=newNode;
+                    return root;
+                }else{
+                    troot=troot->left;
+                }
+            }else{
+                if(troot->right==NULL){
+                    troot->right=newNode;
+                    return root;
+                }else{
+                    troot=troot->right;
+                }
+            }
+        }
+    }
+}
+
+void preOrder(struct BST* root){
+    if(!root) return ;
+    
+    printf("%d ",root->data);
+    preOrder(root->left);
+    preOrder(root->right);
+}
+
+void inOrder(struct BST* root){
+    if(!root) return ;
+    
+    inOrder(root->left);
+    printf("%d ",root->data);
+    inOrder(root->right);
+}
+
+void postOrder(struct BST* root){
+    if(!root) return ;
+    
+    postOrder(root->left);
+    postOrder(root->right);
+    printf("%d ",root->data);
+}
+
+
+void main(){
+
+    int opt;
+    int num;
+    struct BST* root=NULL;
+    while(1){
+        system("CLS");
+        printf("\n1 : Insert ");
+        printf("\n2 : PreOrder ");
+        printf("\n3 : Inorder ");
+        printf("\n4 : Post ");
+        printf("\n5 : Exit \n");
+        printf("\nEnter your option >> ");
+        scanf("%d",&opt);
+        switch(opt){
+            case 1 : printf("\nEnter the value : ");
+                     scanf("%d",&num);
+                     root = insert(root,num); system("pause");  
+                     break;
+            case 2 : printf("Pre Order : ");
+                    preOrder(root);
+                    system("pause");  
+                    break;
+                    
+            case 3 : printf("In Order : ");
+                    inOrder(root);
+                    system("pause");  
+                    break;
+
+            case 4 : printf("post Order : ");
+                    postOrder(root);
+                    system("pause");  
+                    break;
+
+            default : exit(0);
+            
+        }
+    }
+}
